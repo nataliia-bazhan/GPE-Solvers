@@ -1,0 +1,19 @@
+function V = getV(obj, t)
+V = 0;
+U = obj.getU(t);
+phi = obj.w*t;
+
+if obj.n > 0
+    dp = 2*pi/obj.n;
+    for i = 0 : obj.n - 1
+        V = V + U*exp(-(1/(2*obj.a_max^2))*...
+                     (obj.grid.X.*sin(phi + i*dp)- ...
+                      obj.grid.Y.*cos(phi + i*dp)).^2).*...
+                    ((obj.grid.X.*cos(phi + i*dp) + ...
+                      obj.grid.Y.*sin(phi + i*dp))>0).*...
+                    ((obj.grid.X.^2 + ...
+                      obj.grid.Y.^2) > obj.R_min.^2);    
+    end
+end
+
+end
